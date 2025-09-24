@@ -13,7 +13,7 @@ plugins {
     signing
 }
 
-group = "io.github.faridsolgi.persiandatemultiplatform"
+group = "io.github.faridsolgi"
 version = "0.0.3"
 
 kotlin {
@@ -79,7 +79,7 @@ tasks.withType<PublishToMavenLocal>().configureEach {
 mavenPublishing {
     publishToMavenCentral()
     signAllPublications()
-    coordinates(group.toString(), "", version.toString())
+    coordinates(group.toString(), "PersianDateMultiplatform", version.toString())
 
 
     pom {
