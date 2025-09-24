@@ -78,6 +78,110 @@ val formatted = persianDate.format {
 }
 println(formatted) // "1402 07 02"
 ```
+## Extension Functions Usage
+
+PersianDateMultiplatform provides rich extension functions for working with dates. Here are the main extension categories and usage examples:
+
+### Conversion Extensions
+
+Convert `LocalDate` or `LocalDateTime` to a Persian date:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.toPersianDateTime
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+
+val gregorianDate = LocalDate(2023, 9, 24)
+val persianDate = gregorianDate.toPersianDateTime() // PersianDateTime instance
+
+val gregorianDateTime = LocalDateTime(2023, 9, 24, 15, 20, 0)
+val persianDateTime = gregorianDateTime.toPersianDateTime()
+```
+
+Convert Persian date back to Gregorian:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.toGregorian
+
+val gregorianAgain = persianDate.toGregorian()
+```
+
+### Arithmetic Extensions
+
+Add or subtract days:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.plusDays
+import com.faridsolgi.persiandatemultiplatform.converter.minusDays
+
+val nextWeek = persianDate.plusDays(7)
+val yesterday = persianDate.minusDays(1)
+```
+
+### Comparison Extensions
+
+Compare Persian dates:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.isBefore
+import com.faridsolgi.persiandatemultiplatform.converter.isAfter
+import com.faridsolgi.persiandatemultiplatform.converter.isBetween
+
+if (persianDate.isBefore(nextWeek)) { /* ... */ }
+if (persianDate.isAfter(yesterday)) { /* ... */ }
+if (persianDate.isBetween(yesterday, nextWeek)) { /* ... */ }
+```
+
+### Month, Day, Leap Extensions
+
+Check leap years, month length, month or weekday name:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.isLeap
+import com.faridsolgi.persiandatemultiplatform.converter.monthLength
+import com.faridsolgi.persiandatemultiplatform.converter.monthName
+import com.faridsolgi.persiandatemultiplatform.converter.dayOfWeekName
+
+println(persianDate.isLeap())           // true/false
+println(persianDate.monthLength())      // 31, 30, or 29
+println(persianDate.monthName())        // "مهر" (Mehr), etc.
+println(persianDate.dayOfWeekName())    // "سه‌شنبه" (Tuesday), etc.
+```
+
+### Formatting Extensions
+
+Format Persian dates to string:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.toDateString
+import com.faridsolgi.persiandatemultiplatform.converter.toTimeString
+import com.faridsolgi.persiandatemultiplatform.converter.toDateTimeString
+
+println(persianDate.toDateString())      // "1402/07/02"
+println(persianDate.toTimeString())      // "00:00:00"
+println(persianDate.toDateTimeString())  // "1402/07/02 00:00:00"
+```
+
+#### Custom Formatting DSL
+
+You can build custom formatted strings using the DSL:
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.converter.format
+
+val custom = persianDate.format {
+    year()
+    text("-")
+    month()
+    text("-")
+    day()
+}
+println(custom) // "1402-07-02"
+```
+
+---
+
+See the [`library/src/commonMain/kotlin/com/faridsolgi/persiandatemultiplatform/converter/Extensions.kt`](library/src/commonMain/kotlin/com/faridsolgi/persiandatemultiplatform/converter/Extensions.kt) file for a complete list of available extensions.
 
 Or using helpers:
 
