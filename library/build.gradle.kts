@@ -13,7 +13,7 @@ plugins {
     signing
 }
 
-group = "com.faridsolgi.persiandatemultiplatform"
+group = "io.github.faridsolgi.persiandatemultiplatform"
 version = "0.0.3"
 
 kotlin {
@@ -50,7 +50,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.faridsolgi.persiandatemultiplatform"
+    namespace = "io.github.faridsolgi.persiandatemultiplatform"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -79,7 +79,7 @@ tasks.withType<PublishToMavenLocal>().configureEach {
 mavenPublishing {
     publishToMavenCentral()
     signAllPublications()
-    coordinates(group.toString(), "persiandatemultiplatform", version.toString())
+    coordinates(group.toString(), "", version.toString())
 
 
     pom {
