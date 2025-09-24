@@ -7,8 +7,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    id("org.jetbrains.dokka") version "1.9.20" // برای javadoc
-    `maven-publish`
+    id("org.jetbrains.dokka") version "2.0.0"
+    id("com.vanniktech.maven.publish") version "0.34.0"
+    id("maven-publish")
     signing
 }
 
@@ -75,54 +76,34 @@ tasks.withType<PublishToMavenLocal>().configureEach {
     dependsOn(tasks.withType<Sign>())
 }
 // مطمئن شو هر publication سورس + javadoc داره
-publishing {
-    publications.withType<MavenPublication>().configureEach {
-        artifact(tasks["javadocJar"])
-        pom {
-            name.set("PersianDateMultiplatform")
-            description.set("A Kotlin Multiplatform library for Persian (Jalali) dates.")
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+    coordinates(group.toString(), "persiandatemultiplatform", version.toString())
+
+
+    pom {
+        name = "Persian Date Multiplatform"
+        description = "A Kotlin Multiplatform library for Persian (Jalali) dates."
+        inceptionYear = "2025"
+        url = "https://github.com/faridsolgi/PersianDateMultiplatform"
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+            }
+        }
+        developers {
+            developer {
+                id.set("faridsolgi")
+                name.set("Farid Solgi")
+                email.set("you@example.com")
+            }
+        }
+        scm {
+            connection.set("scm:git:git://github.com/faridsolgi/PersianDateMultiplatform.git")
+            developerConnection.set("scm:git:ssh://github.com:faridsolgi/PersianDateMultiplatform.git")
             url.set("https://github.com/faridsolgi/PersianDateMultiplatform")
-            licenses {
-                license {
-                    name.set("MIT License")
-                    url.set("https://opensource.org/licenses/MIT")
-                }
-            }
-            developers {
-                developer {
-                    id.set("faridsolgi")
-                    name.set("Farid Solgi")
-                    email.set("you@example.com")
-                }
-            }
-            scm {
-                connection.set("scm:git:git://github.com/faridsolgi/PersianDateMultiplatform.git")
-                developerConnection.set("scm:git:ssh://github.com:faridsolgi/PersianDateMultiplatform.git")
-                url.set("https://github.com/faridsolgi/PersianDateMultiplatform")
-            }
         }
     }
-
-    repositories {
-        maven {
-            val releasesRepoUrl =
-                uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl =
-                uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-
-            credentials {
-                username =
-                    findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
-                password =
-                    findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
-            }
-        }
-    }
-}
-
-// امضا با GPG
-signing {
-    useGpgCmd()
-    publishing.publications.forEach { sign(it) }
 }
