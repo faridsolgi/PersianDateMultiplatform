@@ -7,16 +7,17 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-   // alias(libs.plugins.vanniktech.mavenPublish)
+    id("org.jetbrains.dokka") version "1.9.20" // برای javadoc
+    `maven-publish`
+    signing
 }
 
 group = "com.faridsolgi.persiandatemultiplatform"
-version = "1.0.0"
+version = "0.0.1"
 
 kotlin {
     jvm()
     wasmJs {
-        // To build distributions for and run tests use one or several of:
         browser()
         nodejs()
         d8()
@@ -32,11 +33,10 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     linuxX64()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
-                //noinspection NewerVersionAvailable
                 implementation(libs.kotlinx.datetime)
             }
         }
@@ -60,37 +60,69 @@ android {
     }
 }
 
-/*
-mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+// javadoc jar با dokka
+tasks.register<Jar>("javadocJar") {
+    dependsOn(tasks.dokkaHtml)
+    archiveClassifier.set("javadoc")
+    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
+}
 
-    signAllPublications()
-
-    coordinates(group.toString(), "library", version.toString())
-
-    pom {
-        name = "My library"
-        description = "A library."
-        inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
-        licenses {
-            license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+tasks.named("publishKotlinMultiplatformPublicationToMavenLocal") {
+    dependsOn("signKotlinMultiplatformPublication")
+    dependsOn("signJvmPublication")
+}
+tasks.withType<PublishToMavenLocal>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
+// مطمئن شو هر publication سورس + javadoc داره
+publishing {
+    publications.withType<MavenPublication>().configureEach {
+        artifact(tasks["javadocJar"])
+        pom {
+            name.set("PersianDateMultiplatform")
+            description.set("A Kotlin Multiplatform library for Persian (Jalali) dates.")
+            url.set("https://github.com/faridsolgi/PersianDateMultiplatform")
+            licenses {
+                license {
+                    name.set("MIT License")
+                    url.set("https://opensource.org/licenses/MIT")
+                }
             }
-        }
-        developers {
-            developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+            developers {
+                developer {
+                    id.set("faridsolgi")
+                    name.set("Farid Solgi")
+                    email.set("you@example.com")
+                }
             }
-        }
-        scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            scm {
+                connection.set("scm:git:git://github.com/faridsolgi/PersianDateMultiplatform.git")
+                developerConnection.set("scm:git:ssh://github.com:faridsolgi/PersianDateMultiplatform.git")
+                url.set("https://github.com/faridsolgi/PersianDateMultiplatform")
+            }
         }
     }
-}*/
+
+    repositories {
+        maven {
+            val releasesRepoUrl =
+                uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl =
+                uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+
+            credentials {
+                username =
+                    findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                password =
+                    findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
+            }
+        }
+    }
+}
+
+// امضا با GPG
+signing {
+    useGpgCmd()
+    publishing.publications.forEach { sign(it) }
+}

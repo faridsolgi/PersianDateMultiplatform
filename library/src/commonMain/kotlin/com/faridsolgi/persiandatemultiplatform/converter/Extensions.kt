@@ -2,39 +2,39 @@ package com.faridsolgi.persiandatemultiplatform.converter
 
 
 import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
-import com.faridsolgi.persiandatemultiplatform.converter.PersianDateConverter
 import com.faridsolgi.persiandatemultiplatform.util.Constants
 import com.faridsolgi.persiandatemultiplatform.util.PersianDateTimeFormat
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
-// -----------------------------
-// Conversion Extensions
-// -----------------------------
+fun PersianDateTime.toLocalDate(): LocalDate = PersianDateConverter.toGregorianDate(this).date
+fun PersianDateTime.toLocalDateTime(): LocalDateTime = PersianDateConverter.toGregorianDate(this)
 
-fun LocalDate.toPersianDateTime(hour: Int = 0, minute: Int = 0, second: Int = 0): PersianDateTime {
-    val persian = PersianDateConverter.toPersianDate(this)
-    return PersianDateTime(persian.year, persian.month, persian.day, hour, minute, second)
-}
-
-fun LocalDateTime.toPersianDateTime(): PersianDateTime =
-    this.date.toPersianDateTime(hour = this.hour, minute = this.minute, second = this.second)
-
-fun PersianDateTime.toLocalDateTime(): LocalDateTime =
-    LocalDateTime(year, month, day, hour, minute, second)
-
-fun PersianDateTime.toGregorian(): LocalDate = PersianDateConverter.toGregorianDate(this)
+@OptIn(ExperimentalTime::class)
+fun Instant.toPersianDateTime(timeZone: TimeZone): PersianDateTime =
+    PersianDateConverter.toPersianDate(this.toLocalDateTime(timeZone).date)
 
 // -----------------------------
 // Arithmetic Extensions
 // -----------------------------
 
+
+fun LocalDate.toPersianDateTime(hour: Int = 0, minute: Int = 0, second: Int = 0): PersianDateTime {
+    val date = PersianDateConverter.toPersianDate(this) // your extension
+    return date.copy(hour = hour, minute = minute, second = second)
+}
+
 fun PersianDateTime.plusDays(days: Int): PersianDateTime {
-    val newDate = this.toLocalDateTime().date.plus(days, DateTimeUnit.DAY)
-    return newDate.toPersianDateTime(hour, minute, second)
+    val localDateTime = this.toLocalDateTime()
+    val newDate = localDateTime.date.plus(days, DateTimeUnit.DAY)
+    return newDate.toPersianDateTime(this.hour, this.minute, this.second)
 }
 
 fun PersianDateTime.minusDays(days: Int): PersianDateTime = plusDays(-days)

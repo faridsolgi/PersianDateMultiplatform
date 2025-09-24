@@ -2,9 +2,10 @@ package com.faridsolgi.persiandatemultiplatform.converter
 
 import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.number
 
-object PersianDateConverter {
+internal object PersianDateConverter {
 
     fun toPersianDate(date: LocalDate): PersianDateTime {
         val g_d_m = intArrayOf(0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
@@ -31,7 +32,7 @@ object PersianDateConverter {
         return PersianDateTime(jy, jm, jd)
     }
 
-    fun toGregorianDate(persianDate: PersianDateTime): LocalDate {
+    fun toGregorianDate(persianDate: PersianDateTime): LocalDateTime {
         val jy1 = persianDate.year + 1595
         var days = -355668 + (365 * jy1) + (jy1 / 33) * 8 + ((jy1 % 33 + 3) / 4) +
                 persianDate.day + if (persianDate.month < 7) (persianDate.month - 1) * 31 else ((persianDate.month - 7) * 30 + 186)
@@ -60,6 +61,6 @@ object PersianDateConverter {
         var gm = 0
         while (gm < 13 && gd > sal_a[gm]) gd -= sal_a[gm++]
 
-        return LocalDate(gy, gm, gd)
+        return LocalDateTime(gy, gm, gd, persianDate.hour, persianDate.minute, persianDate.second)
     }
 }
