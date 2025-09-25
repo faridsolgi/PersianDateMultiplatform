@@ -26,19 +26,33 @@
 
 ## Getting Started
 
-### 1. Add Dependency
+* **Kotlin Multiplatform Projects (Common Main)**
 
-This project is structured as a Kotlin Multiplatform library. To use it in your own KMP project, add the dependency in your shared module:
+Add the dependency to your `commonMain` source set in your `build.gradle.kts`:
 
 ```kotlin
-dependencies {
-    implementation("io.github.faridsolgi:persiandatetime:<version>")
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("io.github.faridsolgi:persiandatetime:<version>")
+            }
+        }
+    }
 }
 ```
 
-You can also get the library from Maven Central: [PersianDateTime on Maven Central](https://central.sonatype.com/artifact/io.github.faridsolgi/persianDateTime)
+* **Android Native Projects**
 
-Or clone and include the library module directly.
+For Android-native projects, use the dedicated Android artifact:
+
+```kotlin
+dependencies {
+    implementation("io.github.faridsolgi:persianDateTime-android:<version>")
+}
+```
+
+You can also get the library from Maven Central: [PersianDateTime on Maven Central](https://central.sonatype.com/namespace/io.github.faridsolgi) or clone and include the library module directly.
 
 
 
