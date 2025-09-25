@@ -36,7 +36,11 @@ dependencies {
 }
 ```
 
+You can also get the library from Maven Central: [PersianDateTime on Maven Central](https://central.sonatype.com/artifact/io.github.faridsolgi/persianDateTime)
+
 Or clone and include the library module directly.
+
+
 
 ---
 
