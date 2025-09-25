@@ -217,18 +217,6 @@ println(custom) // "02/07/1402 03:45PM"
 
 ---
 
-## Example: Compose Multiplatform Usage
-
-Run the web application in development mode:
-
-```bash
-./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-```
-
-For iOS, use `/iosApp` as the entry point and integrate with SwiftUI (`ContentView.swift`).
-
----
-
 ## License
 
 **MIT License**
