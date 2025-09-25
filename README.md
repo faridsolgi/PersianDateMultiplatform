@@ -254,5 +254,4 @@ SOFTWARE.
 ## References
 
 * [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
-* [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform)
-* [Kotlin/Wasm](https://kotlinlang.org/docs/wasm-overview.html)
+* [Kotlinx datetime](https://github.com/Kotlin/kotlinx-datetime)
