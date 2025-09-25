@@ -26,7 +26,7 @@ This project is structured as a Kotlin Multiplatform library. To use it in your 
 
 ```kotlin
 dependencies {
-    implementation("com.faridsolgi:persiandatemultiplatform:<version>")
+    implementation("io.github.faridsolgi:persiandatetime:<version>")
 }
 ```
 
