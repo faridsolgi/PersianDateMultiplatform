@@ -1,7 +1,7 @@
 package io.github.faridsolgi.persiandatetime.util
 
 
-object Constants {
+internal object Constants {
 
     // Month names (1-12)
     val MONTH_NAMES = listOf(

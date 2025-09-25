@@ -23,8 +23,18 @@ class PersianDateTimeFormat {
         parts.add { dateTime.day.toString().padStart(pad, '0') }
     }
 
-    fun hour(pad: Int = 2) {
+    // 24-hour format
+    fun hour24(pad: Int = 2) {
         parts.add { dateTime.hour.toString().padStart(pad, '0') }
+    }
+
+    // 12-hour format
+    fun hour12(pad: Int = 2) {
+        parts.add {
+            val h = dateTime.hour % 12
+            val display = if (h == 0) 12 else h
+            display.toString().padStart(pad, '0')
+        }
     }
 
     fun minute(pad: Int = 2) {
@@ -33,6 +43,14 @@ class PersianDateTimeFormat {
 
     fun second(pad: Int = 2) {
         parts.add { dateTime.second.toString().padStart(pad, '0') }
+    }
+
+    // AM/PM marker
+    fun amPm(upper: Boolean = true) {
+        parts.add {
+            val marker = if (dateTime.hour < 12) "AM" else "PM"
+            if (upper) marker else marker.lowercase()
+        }
     }
 
     // Character literal
@@ -45,9 +63,8 @@ class PersianDateTimeFormat {
         parts.add { dateTime.monthName() }
     }
 
-    // Day of week name (Saturday = 1)
+    // Day of week name
     fun dayOfWeekName() {
-
         parts.add { dateTime.dayOfWeekName() }
     }
 

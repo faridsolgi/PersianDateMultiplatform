@@ -18,6 +18,7 @@ import io.github.faridsolgi.persiandatetime.converter.toPersianDateTime
 import io.github.faridsolgi.persiandatetime.converter.toTimeString
 import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -32,6 +33,25 @@ class PersianDateTimeTests {
         assertEquals(1404, persian.year)
         assertEquals(1, persian.month)
         assertEquals(1, persian.day)
+    }
+
+    @Test
+    fun testLocalDateTimeToPersianConversion() {
+        val gregorian = LocalDateTime(
+            year = 2025,
+            month = 3,
+            day = 21,
+            hour = 22,
+            minute = 15,
+            second = 45
+        )
+        val persian = gregorian.toPersianDateTime()
+        assertEquals(1404, persian.year)
+        assertEquals(1, persian.month)
+        assertEquals(1, persian.day)
+        assertEquals(22, persian.hour)
+        assertEquals(15, persian.minute)
+        assertEquals(45, persian.second)
     }
 
     @Test
@@ -88,7 +108,7 @@ class PersianDateTimeTests {
         assertEquals("15:30:45", persian.toTimeString())
         assertEquals("1404/01/01 15:30:45", persian.toDateTimeString())
         val formatted = persian.format {
-            day(); char('/'); month(); char('/'); year(); char(' '); hour(); char(':'); minute()
+            day(); char('/'); month(); char('/'); year(); char(' '); hour24(); char(':'); minute()
         }
         assertEquals("01/01/1404 15:30", formatted)
     }

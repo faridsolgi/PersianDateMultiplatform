@@ -4,32 +4,21 @@ package io.github.faridsolgi.persiandatetime.converter
 import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
 import io.github.faridsolgi.persiandatetime.util.Constants
 import io.github.faridsolgi.persiandatetime.util.PersianDateTimeFormat
+import io.github.faridsolgi.persiandatetime.util.getLeapFactor
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.plus
-import kotlinx.datetime.toLocalDateTime
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
 
 fun PersianDateTime.toLocalDate(): LocalDate = PersianDateConverter.toGregorianDate(this).date
 fun PersianDateTime.toLocalDateTime(): LocalDateTime = PersianDateConverter.toGregorianDate(this)
 
-@OptIn(ExperimentalTime::class)
-fun Instant.toPersianDateTime(timeZone: TimeZone): PersianDateTime =
-    PersianDateConverter.toPersianDate(this.toLocalDateTime(timeZone).date)
 
 // -----------------------------
 // Arithmetic Extensions
 // -----------------------------
 
-
-fun LocalDate.toPersianDateTime(hour: Int = 0, minute: Int = 0, second: Int = 0): PersianDateTime {
-    val date = PersianDateConverter.toPersianDate(this) // your extension
-    return date.copy(hour = hour, minute = minute, second = second)
-}
 
 fun PersianDateTime.plusDays(days: Int): PersianDateTime {
     val localDateTime = this.toLocalDateTime()
@@ -70,23 +59,6 @@ fun PersianDateTime.dayOfWeek(): Int {
 
 fun PersianDateTime.dayOfWeekName(): String = Constants.WEEK_NAMES.getOrElse(dayOfWeek()) { "نامعلوم" }
 
-fun getLeapFactor(jalaliYear: Int): Int {
-    val breaks = Constants.LEAP_BREAKS
-    var jp = breaks[0]
-    for (j in 1..breaks.lastIndex) {
-        val jm = breaks[j]
-        val jump = jm - jp
-        if (jalaliYear < jm) {
-            var n = jalaliYear - jp
-            if ((jump - n) < 6) n = n - jump + (jump + 4) / 33 * 33
-            var leap = ((n + 1) % 33 - 1) % 4
-            if (leap == -1) leap = 4
-            return leap
-        }
-        jp = jm
-    }
-    return 0
-}
 
 // -----------------------------
 // Formatting DSL

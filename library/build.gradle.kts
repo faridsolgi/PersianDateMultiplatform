@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "io.github.faridsolgi"
-version = "0.0.3"
+version = "0.0.5"
 
 kotlin {
     jvm()
