@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-blueviolet.svg)](https://kotlinlang.org/lp/multiplatform/)
 ![Android](https://img.shields.io/badge/Android-✔-green.svg)
-![iOS](https://img.shields.io/badge/iOS-✔-lightgrey.svg)
+![iOS](https://img.shields.io/badge/iOS-✔-blue.svg)
 ![JVM](https://img.shields.io/badge/JVM-✔-orange.svg)
 ![WASM](https://img.shields.io/badge/WASM-✔-purple.svg)
 
