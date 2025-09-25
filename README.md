@@ -243,14 +243,6 @@ SOFTWARE.
 
 ---
 
-## Contributing & Feedback
-
-* Feel free to open issues or PRs!
-* For feedback on Kotlin Multiplatform and Compose/Web, join the public Slack channel **#compose-web**.
-* If you face any issues, please report them on **YouTrack**.
-
----
-
 ## References
 
 * [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
