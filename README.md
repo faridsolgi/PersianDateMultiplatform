@@ -1,20 +1,26 @@
 # PersianDateMultiplatform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-blueviolet.svg)](https://kotlinlang.org/lp/multiplatform/)
+![Android](https://img.shields.io/badge/Android-✔-green.svg)
+![iOS](https://img.shields.io/badge/iOS-✔-lightgrey.svg)
+![JVM](https://img.shields.io/badge/JVM-✔-orange.svg)
+![WASM](https://img.shields.io/badge/WASM-✔-purple.svg)
 
-PersianDateMultiplatform is a **Kotlin Multiplatform library** for working with the Persian (Jalali/Shamsi) calendar across Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm). The library provides utilities for conversion, formatting, and manipulation of Persian dates, with support for leap years, month and weekday names, and integration into Compose Multiplatform projects.
+
+**PersianDateMultiplatform** is a Kotlin Multiplatform library for working with the Persian (Jalali/Shamsi) calendar across Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm). The library provides utilities for conversion, formatting, and manipulation of Persian dates, with support for leap years, month and weekday names, and integration into Compose Multiplatform projects.
 
 ---
 
 ## Features
 
-- **Persian Date Conversion:** Convert between Gregorian and Persian date representations.
-- **Date Formatting:** Format Persian date/time objects to strings (date, time, date-time).
-- **Leap Year Calculations:** Accurately determine leap years in the Jalali calendar.
-- **Month/Weekday Names:** Get Persian month and weekday names.
-- **Multiplatform Support:** Use in Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm).
-- **DSL for Formatting:** Easy-to-use builder for custom date/time formats.
-- **Integration Samples:** Compose Multiplatform project structure for real-world apps.
+* **Persian Date Conversion**: Convert between Gregorian and Persian date representations.
+* **Date Formatting**: Format Persian date/time objects to strings (date, time, date-time).
+* **Leap Year Calculations**: Accurately determine leap years in the Jalali calendar.
+* **Month/Weekday Names**: Get Persian month and weekday names.
+* **Multiplatform Support**: Use in Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm).
+* **DSL for Formatting**: Easy-to-use builder for custom date/time formats.
+* **Integration Samples**: Compose Multiplatform project structure for real-world apps.
 
 ---
 
@@ -30,18 +36,7 @@ dependencies {
 }
 ```
 
-Or clone and include the `library` module directly.
-
-### 2. Project Structure
-
-- `/library`: Main multiplatform library code.
-- `/composeApp`: Shared code for Compose Multiplatform apps.
-- `/iosApp`: iOS entry point and SwiftUI integration.
-- Platform-specific implementations are in:
-  - `library/src/androidMain`
-  - `library/src/iosMain`
-  - `library/src/desktopMain`
-  - `library/src/wasmJsMain`
+Or clone and include the library module directly.
 
 ---
 
@@ -55,34 +50,9 @@ import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
 val persianDate = PersianDateTime(year = 1402, month = 7, day = 1)
 ```
 
-### Conversion: Gregorian to Persian
+### Extension Functions Usage
 
-```kotlin
-import kotlinx.datetime.LocalDate
-import com.faridsolgi.persiandatemultiplatform.converter.PersianDateConverter
-
-val gregorianDate = LocalDate(2023, 9, 24)
-val persianDate = PersianDateConverter.toPersianDate(gregorianDate)
-println(persianDate) // PersianDateTime(year=1402, month=7, day=2, ...)
-```
-
-### Formatting
-
-```kotlin
-import com.faridsolgi.persiandatemultiplatform.converter.format
-
-val formatted = persianDate.format {
-    year()
-    month()
-    day()
-}
-println(formatted) // "1402 07 02"
-```
-## Extension Functions Usage
-
-PersianDateMultiplatform provides rich extension functions for working with dates. Here are the main extension categories and usage examples:
-
-### Conversion Extensions
+#### Conversion Extensions
 
 Convert `LocalDate` or `LocalDateTime` to a Persian date:
 
@@ -103,12 +73,30 @@ Convert Persian date back to Gregorian:
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.converter.toGregorian
 
-val gregorianAgain = persianDate.toGregorian()
+val gregorian = persianDate.toLocalDate()
+val gregorianWithTime = persianDate.toLocalDateTime()
 ```
 
-### Arithmetic Extensions
+#### Current Date/Time Utilities
 
-Add or subtract days:
+You can get the current Persian date for a specific time zone:
+
+```kotlin
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import com.faridsolgi.persiandatemultiplatform.converter.nowInTehran
+import com.faridsolgi.persiandatemultiplatform.converter.nowPersianDate
+
+// Get the current date in Tehran's timezone
+val nowInTehran = Clock.System.nowInTehran
+println("Current Persian date in Tehran: ${nowInTehran.toDateString()}")
+
+// Get the current date for a different time zone, e.g., "Europe/Paris"
+val nowInParis = Clock.System.nowPersianDate(TimeZone.of("Europe/Paris"))
+println("Current Persian date in Paris: ${nowInParis.toDateString()}")
+```
+
+#### Arithmetic Extensions
 
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.converter.plusDays
@@ -118,9 +106,7 @@ val nextWeek = persianDate.plusDays(7)
 val yesterday = persianDate.minusDays(1)
 ```
 
-### Comparison Extensions
-
-Compare Persian dates:
+#### Comparison Extensions
 
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.converter.isBefore
@@ -132,9 +118,7 @@ if (persianDate.isAfter(yesterday)) { /* ... */ }
 if (persianDate.isBetween(yesterday, nextWeek)) { /* ... */ }
 ```
 
-### Month, Day, Leap Extensions
-
-Check leap years, month length, month or weekday name:
+#### Month, Day, Leap Extensions
 
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.converter.isLeap
@@ -142,15 +126,13 @@ import com.faridsolgi.persiandatemultiplatform.converter.monthLength
 import com.faridsolgi.persiandatemultiplatform.converter.monthName
 import com.faridsolgi.persiandatemultiplatform.converter.dayOfWeekName
 
-println(persianDate.isLeap())           // true/false
-println(persianDate.monthLength())      // 31, 30, or 29
-println(persianDate.monthName())        // "مهر" (Mehr), etc.
-println(persianDate.dayOfWeekName())    // "سه‌شنبه" (Tuesday), etc.
+println(persianDate.isLeap())        // true/false
+println(persianDate.monthLength())   // 31, 30, or 29
+println(persianDate.monthName())     // "مهر" (Mehr)
+println(persianDate.dayOfWeekName()) // "سه‌شنبه" (Tuesday)
 ```
 
-### Formatting Extensions
-
-Format Persian dates to string:
+#### Formatted String Date Extensions
 
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.converter.toDateString
@@ -164,61 +146,47 @@ println(persianDate.toDateTimeString())  // "1402/07/02 00:00:00"
 
 #### Custom Formatting DSL
 
-You can build custom formatted strings using the DSL:
+The formatting DSL supports full date/time patterns:
 
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.converter.format
 
 val custom = persianDate.format {
-    year()
-    text("-")
-    month()
-    text("-")
     day()
+    char('/')
+    month()
+    char('/')
+    year()
+    char(' ')
+    hour12()
+    char(':')
+    minute()
+    amPm()
 }
-println(custom) // "1402-07-02"
+println(custom) // "02/07/1402 03:45PM"
 ```
 
----
+### Formatting DSL Reference
 
-See the [`library/src/commonMain/kotlin/com/faridsolgi/persiandatemultiplatform/converter/Extensions.kt`](library/src/commonMain/kotlin/com/faridsolgi/persiandatemultiplatform/converter/Extensions.kt) file for a complete list of available extensions.
-
-Or using helpers:
-
-```kotlin
-persianDate.toDateString()      // "1402/07/02"
-persianDate.toTimeString()      // "00:00:00"
-persianDate.toDateTimeString()  // "1402/07/02 00:00:00"
-```
-
-### Month and Weekday Names
-
-```kotlin
-persianDate.monthName()      // "مهر"
-persianDate.dayOfWeekName()  // e.g., "دوشنبه"
-```
-
-### Leap Year & Month Length
-
-```kotlin
-persianDate.isLeap()         // true/false
-persianDate.monthLength()    // 31, 30, or 29
-```
-
-### Multiplatform Platform Detection
-
-```kotlin
-import com.faridsolgi.persiandatemultiplatform.getPlatform
-
-val platform = getPlatform()
-println(platform.name) // "Android 33", "Java 17", "Web with Kotlin/Wasm", etc.
-```
+| Function          | Description                            | Example Output |
+| ----------------- | -------------------------------------- | -------------- |
+| `year(pad)`       | Year with optional padding (default 4) | 1402           |
+| `month(pad)`      | Month number with optional padding (2) | 07             |
+| `day(pad)`        | Day of month with optional padding (2) | 02             |
+| `hour24(pad)`     | Hour in 24-hour format (00–23)         | 14             |
+| `hour12(pad)`     | Hour in 12-hour format (01–12)         | 02             |
+| `minute(pad)`     | Minute with optional padding (2)       | 45             |
+| `second(pad)`     | Second with optional padding (2)       | 09             |
+| `amPm(upper)`     | AM/PM marker (uppercase or lowercase)  | PM             |
+| `char(c)`         | Literal character                      | /              |
+| `monthName()`     | Persian month name                     | مهر            |
+| `dayOfWeekName()` | Persian weekday name                   | سه‌شنبه        |
 
 ---
 
 ## Example: Compose Multiplatform Usage
 
-Open the web application in development mode:
+Run the web application in development mode:
 
 ```bash
 ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
@@ -228,10 +196,9 @@ For iOS, use `/iosApp` as the entry point and integrate with SwiftUI (`ContentVi
 
 ---
 
-## MIT License
+## License
 
-```
-MIT License
+**MIT License**
 
 Copyright (c) 2024 Farid Solgi
 
@@ -252,20 +219,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```
 
 ---
 
 ## Contributing & Feedback
 
-Feel free to open issues or PRs! For feedback on Kotlin Multiplatform and Compose/Web, join the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+* Feel free to open issues or PRs!
+* For feedback on Kotlin Multiplatform and Compose/Web, join the public Slack channel **#compose-web**.
+* If you face any issues, please report them on **YouTrack**.
 
 ---
 
 ## References
 
-- [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
-- [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/)
-- [Kotlin/Wasm](https://kotl.in/wasm/)
+* [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
+* [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform)
+* [Kotlin/Wasm](https://kotlinlang.org/docs/wasm-overview.html)
