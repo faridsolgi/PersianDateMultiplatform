@@ -47,7 +47,19 @@ Or clone and include the library module directly.
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
 
+// Date only
 val persianDate = PersianDateTime(year = 1402, month = 7, day = 1)
+
+
+// Date with time
+val persianDateTime = PersianDateTime(
+year = 1402,
+month = 7,
+day = 1,
+hour = 14,
+minute = 30,
+second = 45
+)
 ```
 
 ### Extension Functions Usage
