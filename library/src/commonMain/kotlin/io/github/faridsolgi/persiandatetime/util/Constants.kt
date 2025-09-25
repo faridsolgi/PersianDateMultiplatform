@@ -1,4 +1,4 @@
-package com.faridsolgi.persiandatemultiplatform.util
+package io.github.faridsolgi.persiandatetime.util
 
 
 object Constants {

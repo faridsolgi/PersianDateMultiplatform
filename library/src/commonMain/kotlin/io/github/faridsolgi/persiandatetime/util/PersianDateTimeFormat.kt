@@ -1,8 +1,9 @@
-package com.faridsolgi.persiandatemultiplatform.util
+package io.github.faridsolgi.persiandatetime.util
 
-import com.faridsolgi.persiandatemultiplatform.converter.dayOfWeekName
-import com.faridsolgi.persiandatemultiplatform.converter.monthName
-import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
+
+import io.github.faridsolgi.persiandatetime.converter.dayOfWeekName
+import io.github.faridsolgi.persiandatetime.converter.monthName
+import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
 
 class PersianDateTimeFormat {
     private val parts = mutableListOf<() -> String>()

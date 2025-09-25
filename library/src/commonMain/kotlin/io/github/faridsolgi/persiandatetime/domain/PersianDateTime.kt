@@ -1,4 +1,4 @@
-package com.faridsolgi.persiandatemultiplatform.domain
+package io.github.faridsolgi.persiandatetime.domain
 
 data class PersianDateTime(
     val year: Int,

@@ -1,4 +1,4 @@
-rootProject.name = "PersianDateMultiplatform"
+rootProject.name = "persianDateTime"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

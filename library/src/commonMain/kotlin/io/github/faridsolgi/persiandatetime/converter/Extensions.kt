@@ -1,9 +1,9 @@
-package com.faridsolgi.persiandatemultiplatform.converter
+package io.github.faridsolgi.persiandatetime.converter
 
 
-import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
-import com.faridsolgi.persiandatemultiplatform.util.Constants
-import com.faridsolgi.persiandatemultiplatform.util.PersianDateTimeFormat
+import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
+import io.github.faridsolgi.persiandatetime.util.Constants
+import io.github.faridsolgi.persiandatetime.util.PersianDateTimeFormat
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime

@@ -1,7 +1,8 @@
-package com.faridsolgi.persiandatemultiplatform.util
+package io.github.faridsolgi.persiandatetime.util
 
-import com.faridsolgi.persiandatemultiplatform.converter.toPersianDateTime
-import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
+
+import io.github.faridsolgi.persiandatetime.converter.toPersianDateTime
+import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
 import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime

@@ -10,7 +10,6 @@ plugins {
     id("org.jetbrains.dokka") version "2.0.0"
     id("com.vanniktech.maven.publish") version "0.34.0"
     id("maven-publish")
-    signing
 }
 
 group = "io.github.faridsolgi"
@@ -50,7 +49,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.faridsolgi.persiandatemultiplatform"
+    namespace = "io.github.faridsolgi.persianDateTime"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -79,7 +78,7 @@ tasks.withType<PublishToMavenLocal>().configureEach {
 mavenPublishing {
     publishToMavenCentral()
     signAllPublications()
-    coordinates(group.toString(), "PersianDateMultiplatform", version.toString())
+    coordinates(group.toString(), "persianDateTime", version.toString())
 
 
     pom {
@@ -95,14 +94,14 @@ mavenPublishing {
         }
         developers {
             developer {
-                id.set("faridsolgi")
+                id.set("github")
                 name.set("Farid Solgi")
-                email.set("you@example.com")
+                email.set("solgifarid@gmail.com")
             }
         }
         scm {
-            connection.set("scm:git:git://github.com/faridsolgi/PersianDateMultiplatform.git")
-            developerConnection.set("scm:git:ssh://github.com:faridsolgi/PersianDateMultiplatform.git")
+            connection.set("scm:git:git://github.io/github/PersianDateMultiplatform.git")
+            developerConnection.set("scm:git:ssh://github.io:github/PersianDateMultiplatform.git")
             url.set("https://github.com/faridsolgi/PersianDateMultiplatform")
         }
     }
