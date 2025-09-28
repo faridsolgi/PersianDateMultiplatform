@@ -38,6 +38,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                // Add kotlinx-datetime first
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                
+                // Then your PersianDateTime library
                 implementation("io.github.faridsolgi:persiandatetime:<version>")
             }
         }
@@ -51,6 +55,10 @@ For Android-native projects, use the dedicated Android artifact:
 
 ```kotlin
 dependencies {
+    // Add kotlinx-datetime first
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    
+    // Then the PersianDateTime Android artifact
     implementation("io.github.faridsolgi:persianDateTime-android:<version>")
 }
 ```
