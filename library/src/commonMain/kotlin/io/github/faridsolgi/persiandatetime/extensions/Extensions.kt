@@ -1,4 +1,4 @@
-package io.github.faridsolgi.persiandatetime.converter
+package io.github.faridsolgi.persiandatetime.extensions
 
 
 import io.github.faridsolgi.persiandatetime.domain.PersianDateTime

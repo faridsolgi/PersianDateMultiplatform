@@ -1,14 +1,14 @@
 package io.github.faridsolgi.persiandatetime
 
-import io.github.faridsolgi.persiandatetime.converter.isLeapYear
-import io.github.faridsolgi.persiandatetime.converter.minusDays
-import io.github.faridsolgi.persiandatetime.converter.monthLength
-import io.github.faridsolgi.persiandatetime.converter.persianDayOfWeek
-import io.github.faridsolgi.persiandatetime.converter.plusDays
-import io.github.faridsolgi.persiandatetime.converter.toDateString
-import io.github.faridsolgi.persiandatetime.converter.toLocalDate
-import io.github.faridsolgi.persiandatetime.converter.toPersianDateTime
 import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
+import io.github.faridsolgi.persiandatetime.extensions.isLeapYear
+import io.github.faridsolgi.persiandatetime.extensions.minusDays
+import io.github.faridsolgi.persiandatetime.extensions.monthLength
+import io.github.faridsolgi.persiandatetime.extensions.persianDayOfWeek
+import io.github.faridsolgi.persiandatetime.extensions.plusDays
+import io.github.faridsolgi.persiandatetime.extensions.toDateString
+import io.github.faridsolgi.persiandatetime.extensions.toLocalDate
+import io.github.faridsolgi.persiandatetime.extensions.toPersianDateTime
 import kotlinx.datetime.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals

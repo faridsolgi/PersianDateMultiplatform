@@ -1,9 +1,9 @@
 package io.github.faridsolgi.persiandatetime.util
 
 
-import io.github.faridsolgi.persiandatetime.converter.persianDayOfWeek
-import io.github.faridsolgi.persiandatetime.converter.persianMonth
 import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
+import io.github.faridsolgi.persiandatetime.extensions.persianDayOfWeek
+import io.github.faridsolgi.persiandatetime.extensions.persianMonth
 
 /**
  * A DSL builder for formatting [PersianDateTime] objects into custom string representations.
