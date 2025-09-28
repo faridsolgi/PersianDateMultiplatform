@@ -92,20 +92,6 @@ val parsedDate = PersianDateTime.parse("1402/07/01")
 val parsedDateTime = PersianDateTime.parse("1402-07-01 14:30:45")
 ```
 
-### Using PersianDateHelper
-
-```kotlin
-val helper = PersianDateHelper()
-
-// Get all days for a specific Persian month
-val monthDays = helper.getPersianMonth(year = 1402, month = 7)
-
-// Iterate over days
-monthDays.forEach { day ->
-    println("${day.persianDate} - Weekday: ${day.weekday} - Gregorian: ${day.gregorianDate}")
-}
-```
-
 ### Additional Examples
 
 ```kotlin
