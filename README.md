@@ -68,19 +68,55 @@ You can also get the library from Maven Central: [PersianDateTime on Maven Centr
 ```kotlin
 import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
 
-// Date only
+// Create a date only
 val persianDate = PersianDateTime(year = 1402, month = 7, day = 1)
 
-
-// Date with time
+// Create a date with time
 val persianDateTime = PersianDateTime(
-year = 1402,
-month = 7,
-day = 1,
-hour = 14,
-minute = 30,
-second = 45
+    year = 1402,
+    month = 7,
+    day = 1,
+    hour = 14,
+    minute = 30,
+    second = 45
 )
+```
+
+### Parsing Persian Dates from String
+
+```kotlin
+// Parse date only
+val parsedDate = PersianDateTime.parse("1402/07/01")
+
+// Parse date with time
+val parsedDateTime = PersianDateTime.parse("1402-07-01 14:30:45")
+```
+
+### Using PersianDateHelper
+
+```kotlin
+val helper = PersianDateHelper()
+
+// Get all days for a specific Persian month
+val monthDays = helper.getPersianMonth(year = 1402, month = 7)
+
+// Iterate over days
+monthDays.forEach { day ->
+    println("${day.persianDate} - Weekday: ${day.weekday} - Gregorian: ${day.gregorianDate}")
+}
+```
+
+### Additional Examples
+
+```kotlin
+// Accessing date components
+println(parsedDate.year)   // 1402
+println(parsedDate.month)  // 7
+println(parsedDate.day)    // 1
+
+// Formatting a Persian date to string
+val formatted = parsedDateTime.toString()
+println(formatted) // Example: "1402-07-01 14:30:45"
 ```
 
 ### Extension Functions Usage
@@ -161,8 +197,8 @@ import com.faridsolgi.persiandatemultiplatform.converter.dayOfWeekName
 
 println(persianDate.isLeap())        // true/false
 println(persianDate.monthLength())   // 31, 30, or 29
-println(persianDate.monthName())     // "مهر" (Mehr)
-println(persianDate.dayOfWeekName()) // "سه‌شنبه" (Tuesday)
+println(persianDate.persianMonth().displayName)     // "مهر" (Mehr)
+println(persianDate.persianDayOfWeek().displayName) // "سه‌شنبه" (Tuesday)
 ```
 
 #### Formatted String Date Extensions

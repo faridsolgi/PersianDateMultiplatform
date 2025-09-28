@@ -1,15 +1,14 @@
-package io.github.faridsolgi
+package io.github.faridsolgi.persiandatetime
 
 
-import io.github.faridsolgi.persiandatetime.converter.dayOfWeek
-import io.github.faridsolgi.persiandatetime.converter.dayOfWeekName
 import io.github.faridsolgi.persiandatetime.converter.format
 import io.github.faridsolgi.persiandatetime.converter.isAfter
 import io.github.faridsolgi.persiandatetime.converter.isBefore
 import io.github.faridsolgi.persiandatetime.converter.isBetween
-import io.github.faridsolgi.persiandatetime.converter.isLeap
+import io.github.faridsolgi.persiandatetime.converter.isLeapYear
 import io.github.faridsolgi.persiandatetime.converter.minusDays
 import io.github.faridsolgi.persiandatetime.converter.monthLength
+import io.github.faridsolgi.persiandatetime.converter.persianDayOfWeek
 import io.github.faridsolgi.persiandatetime.converter.plusDays
 import io.github.faridsolgi.persiandatetime.converter.toDateString
 import io.github.faridsolgi.persiandatetime.converter.toDateTimeString
@@ -25,7 +24,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PersianDateTimeTests {
-
     @Test
     fun testGregorianToPersianConversion() {
         val gregorian = LocalDate(2025, 3, 21)
@@ -82,8 +80,8 @@ class PersianDateTimeTests {
 
     @Test
     fun testLeapYear() {
-        assertTrue(PersianDateTime(1399, 1, 1).isLeap())
-        assertFalse(PersianDateTime(1400, 1, 1).isLeap())
+        assertTrue(PersianDateTime(1399, 1, 1).isLeapYear())
+        assertFalse(PersianDateTime(1400, 1, 1).isLeapYear())
     }
 
     @Test
@@ -96,9 +94,9 @@ class PersianDateTimeTests {
 
     @Test
     fun testDayOfWeek() {
-        val persian = PersianDateTime(1404, 1, 1) // corresponds to Saturday
-        assertEquals(7, persian.dayOfWeek())
-        assertEquals("جمعه", persian.dayOfWeekName())
+        val persian = PersianDateTime(1404, 1, 1) // corresponds to friday
+        assertEquals(7, persian.persianDayOfWeek().number)
+        assertEquals("جمعه", persian.persianDayOfWeek().displayName)
     }
 
     @Test

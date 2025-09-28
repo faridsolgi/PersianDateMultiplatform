@@ -1,9 +1,9 @@
-package io.github.faridsolgi
+package io.github.faridsolgi.persiandatetime
 
-import io.github.faridsolgi.persiandatetime.converter.dayOfWeek
-import io.github.faridsolgi.persiandatetime.converter.isLeap
+import io.github.faridsolgi.persiandatetime.converter.isLeapYear
 import io.github.faridsolgi.persiandatetime.converter.minusDays
 import io.github.faridsolgi.persiandatetime.converter.monthLength
+import io.github.faridsolgi.persiandatetime.converter.persianDayOfWeek
 import io.github.faridsolgi.persiandatetime.converter.plusDays
 import io.github.faridsolgi.persiandatetime.converter.toDateString
 import io.github.faridsolgi.persiandatetime.converter.toLocalDate
@@ -24,11 +24,11 @@ class PersianDateTimeParameterizedTests {
     fun testLeapYears() {
         leapYears.forEach { year ->
             val persian = PersianDateTime(year, 1, 1)
-            assertTrue(persian.isLeap(), "$year should be leap")
+            assertTrue(persian.isLeapYear(), "$year should be leap")
         }
         nonLeapYears.forEach { year ->
             val persian = PersianDateTime(year, 1, 1)
-            assertFalse(persian.isLeap(), "$year should not be leap")
+            assertFalse(persian.isLeapYear(), "$year should not be leap")
         }
     }
 
@@ -73,8 +73,7 @@ class PersianDateTimeParameterizedTests {
 
         knownDates.forEach { (date, expectedDay) ->
             assertEquals(
-                expectedDay,
-                date.dayOfWeek(),
+                expectedDay, date.persianDayOfWeek().number,
                 "Day of week mismatch for ${date.toDateString()}"
             )
         }
