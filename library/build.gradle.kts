@@ -10,10 +10,11 @@ plugins {
     id("org.jetbrains.dokka") version "2.0.0"
     id("com.vanniktech.maven.publish") version "0.34.0"
     id("maven-publish")
+    signing
 }
 
 group = "io.github.faridsolgi"
-version = "0.0.5"
+version = "0.1.0"
 
 kotlin {
     jvm()
@@ -70,6 +71,17 @@ tasks.register<Jar>("javadocJar") {
 tasks.named("publishKotlinMultiplatformPublicationToMavenLocal") {
     dependsOn("signKotlinMultiplatformPublication")
     dependsOn("signJvmPublication")
+    dependsOn("signWasmJsPublication")
+    dependsOn("signAndroidReleasePublication")
+
+}
+signing {
+    useInMemoryPgpKeys(
+        System.getenv("MAVEN_KEY_ID") as String?,
+        System.getenv("MAVEN_SECRET_KEY") as String?,
+        System.getenv("MAVEN_GPG_PASSWORD") as String?
+    )
+    sign(publishing.publications)
 }
 tasks.withType<PublishToMavenLocal>().configureEach {
     dependsOn(tasks.withType<Sign>())

@@ -1,10 +1,38 @@
 package io.github.faridsolgi.persiandatetime.util
 
 
-import io.github.faridsolgi.persiandatetime.converter.dayOfWeekName
-import io.github.faridsolgi.persiandatetime.converter.monthName
+import io.github.faridsolgi.persiandatetime.converter.persianDayOfWeek
+import io.github.faridsolgi.persiandatetime.converter.persianMonth
 import io.github.faridsolgi.persiandatetime.domain.PersianDateTime
 
+/**
+ * A DSL builder for formatting [PersianDateTime] objects into custom string representations.
+ *
+ * You can selectively add year, month, day, hour, minute, second, AM/PM markers,
+ * literal characters, month names, and day-of-week names.
+ *
+ * Example usage:
+ * ```kotlin
+ * val persianDate = PersianDateTime(1402, 7, 15, 14, 30, 0)
+ * val formatted = PersianDateTimeFormat().apply {
+ *     dateTime = persianDate
+ *     day(pad = 2)
+ *     char('/')
+ *     month(pad = 2)
+ *     char('/')
+ *     year(pad = 4)
+ *     char(' ')
+ *     hour24()
+ *     char(':')
+ *     minute()
+ *     char(':')
+ *     second()
+ *     char(' ')
+ *     amPm()
+ * }.build()
+ * println(formatted) // Outputs: "15/07/1402 14:30:00 PM"
+ * ```
+ */
 class PersianDateTimeFormat {
     private val parts = mutableListOf<() -> String>()
 
@@ -60,12 +88,12 @@ class PersianDateTimeFormat {
 
     // Month name
     fun monthName() {
-        parts.add { dateTime.monthName() }
+        parts.add { dateTime.persianMonth().displayName }
     }
 
     // Day of week name
     fun dayOfWeekName() {
-        parts.add { dateTime.dayOfWeekName() }
+        parts.add { dateTime.persianDayOfWeek().displayName }
     }
 
     fun build(): String = parts.joinToString("") { it() }
