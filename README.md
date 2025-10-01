@@ -10,6 +10,7 @@
 
 **PersianDateMultiplatform** is a Kotlin Multiplatform library for working with the Persian (Jalali/Shamsi) calendar across Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm). The library provides utilities for conversion, formatting, and manipulation of Persian dates, with support for leap years, month and weekday names, and integration into Compose Multiplatform projects.
 
+<img width="1920" height="1080" alt="kotlin_multiplatform_persian_date_time" src="https://github.com/user-attachments/assets/1b412ce5-85c5-4f74-b416-1f50b25f80a1" />
 
 
 ## Features
