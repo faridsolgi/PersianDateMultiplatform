@@ -11,9 +11,6 @@
 **PersianDateMultiplatform** is a Kotlin Multiplatform library for working with the Persian (Jalali/Shamsi) calendar across Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm). The library provides utilities for conversion, formatting, and manipulation of Persian dates, with support for leap years, month and weekday names, and integration into Compose Multiplatform projects.
 
 
-Note: This library depends on [Kotlinx datetime](https://github.com/Kotlin/kotlinx-datetime) for date-time operations, so make sure to include it in your project dependencies.
-
-
 
 ## Features
 
@@ -32,7 +29,14 @@ Note: This library depends on [Kotlinx datetime](https://github.com/Kotlin/kotli
 * **Kotlin Multiplatform Projects (Common Main)**
 
  ![Version](https://img.shields.io/badge/version-0.1.0-green.svg)
+ 
+The library is published to Maven Central.
 
+The library is compatible with the Kotlin Standard Library not lower than 2.1.20.
+
+If you target Android devices running below API 26, you need to use Android Gradle plugin 4.0 or newer and enable core library desugaring.
+
+⚠️ Note: This library depends on the latest version of [Kotlinx datetime](https://github.com/Kotlin/kotlinx-datetime), so make sure to always use the most recent release.
 
 Add the dependency to your `commonMain` source set in your `build.gradle.kts`:
 
@@ -45,7 +49,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:<version>")
                 
                 // Then your PersianDateTime library
-                implementation("io.github.faridsolgi:persiandatetime:<version>")
+                implementation("io.github.faridsolgi:persianDateTime:<version>")
             }
         }
     }
@@ -62,7 +66,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:<version>")
     
     // Then the PersianDateTime Android artifact
-    implementation("io.github.faridsolgi:persianDateTime-android:<version>")
+    implementation("io.github.faridsolgi:persianDateTime:<version>")
 }
 ```
 
