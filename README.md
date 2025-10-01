@@ -45,7 +45,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:<version>")
                 
                 // Then your PersianDateTime library
-                implementation("io.github.faridsolgi:persiandatetime:<version>")
+                implementation("io.github.faridsolgi:persianDateTime:<version>")
             }
         }
     }
