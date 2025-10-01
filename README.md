@@ -10,6 +10,7 @@
 
 **PersianDateMultiplatform** is a Kotlin Multiplatform library for working with the Persian (Jalali/Shamsi) calendar across Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm). The library provides utilities for conversion, formatting, and manipulation of Persian dates, with support for leap years, month and weekday names, and integration into Compose Multiplatform projects.
 
+<img width="1920" height="1080" alt="kotlin_multiplatform_persian_date_time" src="https://github.com/user-attachments/assets/1b412ce5-85c5-4f74-b416-1f50b25f80a1" />
 
 
 ## Features
@@ -103,6 +104,22 @@ val persianDateTime = PersianDateTime(
 ### Parsing Persian Dates from String
 
 ```kotlin
+    /**
+         * Parse PersianDateTime from a string.
+         *
+         * Supported formats:
+         * - "yyyy/MM/dd"
+         * - "yyyy-MM-dd"
+         * - "yyyy/MM/dd HH:mm"
+         * - "yyyy-MM-dd HH:mm"
+         * - "yyyy/MM/dd HH:mm:ss"
+         * - "yyyy-MM-dd HH:mm:ss"
+         * - "yyyy-MM-ddTHH:mm:ss"
+         *
+         * @param input The date string to parse.
+         * @return A valid [PersianDateTime] instance.
+         * @throws IllegalArgumentException if the input format is invalid.
+         */
 // Parse date only
 val parsedDate = PersianDateTime.parse("1402/07/01")
 
@@ -251,7 +268,7 @@ val custom = persianDate.format {
     minute()
     amPm()
 }
-println(custom) // "02/07/1402 03:45PM"
+println(custom) // "02/07/1402 03:45ب.‌ظ"
 ```
 
 ### Formatting DSL Reference
@@ -265,7 +282,7 @@ println(custom) // "02/07/1402 03:45PM"
 | `hour12(pad)`     | Hour in 12-hour format (01–12)         | 02             |
 | `minute(pad)`     | Minute with optional padding (2)       | 45             |
 | `second(pad)`     | Second with optional padding (2)       | 09             |
-| `amPm(upper)`     | AM/PM marker (uppercase or lowercase)  | PM             |
+| `amPm()`     | AM/PM marker   | ب.‌ظ,ق.‌ظ             |
 | `char(c)`         | Literal character                      | /              |
 | `monthName()`     | Persian month name                     | مهر            |
 | `dayOfWeekName()` | Persian weekday name                   | سه‌شنبه        |
