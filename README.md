@@ -72,7 +72,10 @@ dependencies {
 
 You can also get the library from Maven Central: [PersianDateTime on Maven Central](https://central.sonatype.com/namespace/io.github.faridsolgi) or clone and include the library module directly.
 
+### Support for Kotlinx Serialization
 
+If you also add the [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization) library to your project,
+PersianDateTime supports `@Serializable`.
 
 
 
