@@ -104,6 +104,22 @@ val persianDateTime = PersianDateTime(
 ### Parsing Persian Dates from String
 
 ```kotlin
+    /**
+         * Parse PersianDateTime from a string.
+         *
+         * Supported formats:
+         * - "yyyy/MM/dd"
+         * - "yyyy-MM-dd"
+         * - "yyyy/MM/dd HH:mm"
+         * - "yyyy-MM-dd HH:mm"
+         * - "yyyy/MM/dd HH:mm:ss"
+         * - "yyyy-MM-dd HH:mm:ss"
+         * - "yyyy-MM-ddTHH:mm:ss"
+         *
+         * @param input The date string to parse.
+         * @return A valid [PersianDateTime] instance.
+         * @throws IllegalArgumentException if the input format is invalid.
+         */
 // Parse date only
 val parsedDate = PersianDateTime.parse("1402/07/01")
 
