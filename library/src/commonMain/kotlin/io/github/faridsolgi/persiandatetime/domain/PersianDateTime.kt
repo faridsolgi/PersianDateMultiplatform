@@ -1,6 +1,13 @@
 package io.github.faridsolgi.persiandatetime.domain
 
+import io.github.faridsolgi.persiandatetime.extensions.toPersianDateTime
 import io.github.faridsolgi.persiandatetime.util.PersianDateValidator
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
+
 
 /**
  * Represents a date and time in the Persian calendar.
@@ -15,6 +22,7 @@ import io.github.faridsolgi.persiandatetime.util.PersianDateValidator
  * @throws IllegalArgumentException if the date or time values are invalid according
  *         to the Persian calendar.
  */
+@Serializable(with = PersianDateTimeSerializer::class)
 data class PersianDateTime(
     val year: Int,
     val month: Int,
@@ -68,6 +76,16 @@ data class PersianDateTime(
             val s = timeElements.getOrElse(2) { 0 }
 
             return PersianDateTime(y, m, d, h, min, s)
+        }
+
+
+        @OptIn(ExperimentalTime::class)
+        fun parse(
+            timeStampMilli: Long,
+            timeZone: TimeZone = TimeZone.currentSystemDefault(),
+        ): PersianDateTime {
+            val instant = Instant.fromEpochMilliseconds(timeStampMilli)
+            return instant.toLocalDateTime(timeZone).toPersianDateTime()
         }
     }
 }
