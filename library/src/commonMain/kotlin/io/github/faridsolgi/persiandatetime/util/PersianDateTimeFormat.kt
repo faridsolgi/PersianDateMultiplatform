@@ -74,10 +74,9 @@ class PersianDateTimeFormat {
     }
 
     // AM/PM marker
-    fun amPm(upper: Boolean = true) {
+    fun amPm() {
         parts.add {
-            val marker = if (dateTime.hour < 12) "AM" else "PM"
-            if (upper) marker else marker.lowercase()
+            if (dateTime.hour < 12) "ق.‌ظ" else "ب.‌ظ"
         }
     }
 
