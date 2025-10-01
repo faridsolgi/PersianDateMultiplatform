@@ -28,7 +28,7 @@
 
 * **Kotlin Multiplatform Projects (Common Main)**
 
- ![Version](https://img.shields.io/badge/version-0.1.0-green.svg)
+![Version](https://img.shields.io/badge/version-0.2.0--beta1-green.svg)
  
 The library is published to Maven Central.
 
@@ -72,7 +72,10 @@ dependencies {
 
 You can also get the library from Maven Central: [PersianDateTime on Maven Central](https://central.sonatype.com/namespace/io.github.faridsolgi) or clone and include the library module directly.
 
+### Support for Kotlinx Serialization
 
+If you also add the [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization) library to your project,
+PersianDateTime supports `@Serializable`.
 
 
 
@@ -105,6 +108,21 @@ val parsedDate = PersianDateTime.parse("1402/07/01")
 
 // Parse date with time
 val parsedDateTime = PersianDateTime.parse("1402-07-01 14:30:45")
+```
+### Parsing Persian Dates from Timestamp
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
+import kotlinx.datetime.TimeZone
+
+// Parse from epoch milliseconds (e.g., 1759323028800 = 01 Oct 2025)
+val timestamp = 1759323028800L
+val persianDateTime = PersianDateTime.parse(timestamp, TimeZone.currentSystemDefault())
+
+println(persianDateTime.year)   // 1404
+println(persianDateTime.month)  // 7
+println(persianDateTime.day)    // 9
+println(persianDateTime.hour)   // 16
 ```
 
 ### Additional Examples
