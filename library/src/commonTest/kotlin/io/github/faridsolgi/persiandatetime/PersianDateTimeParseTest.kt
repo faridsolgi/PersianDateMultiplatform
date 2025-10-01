@@ -81,4 +81,13 @@ class PersianDateTimeParseTest {
         assertEquals(30, dt.minute)
         assertEquals(45, dt.second)
     }
+
+    @Test
+    fun parseTimeStampMilli() {
+        val dt = PersianDateTime.parse(1759323028800)//01 Oct 2025 - 9 mehr 1404
+        assertEquals(1404, dt.year)
+        assertEquals(7, dt.month)
+        assertEquals(9, dt.day)
+        assertEquals(16, dt.hour)
+    }
 }
