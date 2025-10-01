@@ -106,6 +106,21 @@ val parsedDate = PersianDateTime.parse("1402/07/01")
 // Parse date with time
 val parsedDateTime = PersianDateTime.parse("1402-07-01 14:30:45")
 ```
+### Parsing Persian Dates from Timestamp
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
+import kotlinx.datetime.TimeZone
+
+// Parse from epoch milliseconds (e.g., 1759323028800 = 01 Oct 2025)
+val timestamp = 1759323028800L
+val persianDateTime = PersianDateTime.parse(timestamp, TimeZone.currentSystemDefault())
+
+println(persianDateTime.year)   // 1404
+println(persianDateTime.month)  // 7
+println(persianDateTime.day)    // 9
+println(persianDateTime.hour)   // 16
+```
 
 ### Additional Examples
 
