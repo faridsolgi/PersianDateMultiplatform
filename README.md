@@ -268,7 +268,7 @@ val custom = persianDate.format {
     minute()
     amPm()
 }
-println(custom) // "02/07/1402 03:45PM"
+println(custom) // "02/07/1402 03:45ب.‌ظ"
 ```
 
 ### Formatting DSL Reference
@@ -282,7 +282,7 @@ println(custom) // "02/07/1402 03:45PM"
 | `hour12(pad)`     | Hour in 12-hour format (01–12)         | 02             |
 | `minute(pad)`     | Minute with optional padding (2)       | 45             |
 | `second(pad)`     | Second with optional padding (2)       | 09             |
-| `amPm(upper)`     | AM/PM marker (uppercase or lowercase)  | PM             |
+| `amPm()`     | AM/PM marker   | ب.‌ظ,ق.‌ظ             |
 | `char(c)`         | Literal character                      | /              |
 | `monthName()`     | Persian month name                     | مهر            |
 | `dayOfWeekName()` | Persian weekday name                   | سه‌شنبه        |
