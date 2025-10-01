@@ -1,5 +1,5 @@
 # PersianDateMultiplatform
-[English](./README.md) | [فارسی](./README_fa.md)
+[English](./README.md) | [فارسی](./README_FA.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Compose-Multiplatform-blueviolet.svg)](https://kotlinlang.org/lp/multiplatform/)
