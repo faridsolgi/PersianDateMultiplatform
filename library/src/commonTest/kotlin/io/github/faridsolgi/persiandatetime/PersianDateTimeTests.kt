@@ -34,6 +34,12 @@ class PersianDateTimeTests {
     }
 
     @Test
+    fun wrongDayInMonthTest() {
+        val persian = PersianDateTime(1404, 7, 31)
+        assertEquals(30, persian.monthLength())
+    }
+
+    @Test
     fun testLocalDateTimeToPersianConversion() {
         val gregorian = LocalDateTime(
             year = 2025,

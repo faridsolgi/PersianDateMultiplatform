@@ -1,6 +1,6 @@
 package io.github.faridsolgi.persiandatetime.util
 
-object PersianDateValidator {
+internal object PersianDateValidator {
 
     fun validateMonth(month: Int) {
         require(month in 1..12) { "ماه نامعتبر: $month" }

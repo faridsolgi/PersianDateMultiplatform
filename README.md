@@ -237,6 +237,60 @@ println(custom) // "02/07/1402 03:45PM"
 | `monthName()`     | Persian month name                     | مهر            |
 | `dayOfWeekName()` | Persian weekday name                   | سه‌شنبه        |
 
+## Validation and Exceptions
+
+All `PersianDateTime` instances are automatically validated. If you try to create a date or time
+that is invalid, the library will throw an **`IllegalArgumentException`**. Users **do not need to
+call any validator**—it happens internally.
+
+### Rules Checked
+
+* **Month**: Must be between 1 and 12.
+* **Day**: Must be valid for the given month and year (including leap years for month 12).
+* **Time**: Hours must be 0–23, minutes 0–59, seconds 0–59.
+
+### Example Usage
+
+```kotlin
+import com.faridsolgi.persiandatemultiplatform.domain.PersianDateTime
+
+// ✅ Valid date
+val validDate = PersianDateTime(1402, 7, 15)
+
+// ❌ Invalid month
+try {
+    PersianDateTime(1402, 13, 5)
+} catch (e: IllegalArgumentException) {
+    println(e.message) // "ماه نامعتبر: 13"
+}
+
+// ❌ Invalid day
+try {
+    PersianDateTime(1402, 7, 32)
+} catch (e: IllegalArgumentException) {
+    println(e.message) // "روز نامعتبر: 32 برای ماه 7"
+}
+
+// ❌ Invalid time
+try {
+    PersianDateTime(1402, 7, 15, 25, 0, 0)
+} catch (e: IllegalArgumentException) {
+    println(e.message) // "ساعت نامعتبر: 25"
+}
+
+// ✅ Parsing a date string
+val parsedDate = PersianDateTime.parse("1402/07/01 14:30:45")
+
+// ❌ Parsing an invalid string
+try {
+    PersianDateTime.parse("1402/13/01")
+} catch (e: IllegalArgumentException) {
+    println(e.message) // "ماه نامعتبر: 13"
+}
+```
+
+> ⚠️ **Tip:** Always catch `IllegalArgumentException` when accepting user input or parsing strings
+> to safely handle invalid dates.
 
 ## License
 
