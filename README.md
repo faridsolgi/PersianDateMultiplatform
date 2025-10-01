@@ -1,7 +1,7 @@
 # PersianDateMultiplatform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-blueviolet.svg)](https://kotlinlang.org/lp/multiplatform/)
+[![Kotlin](https://img.shields.io/badge/Compose-Multiplatform-blueviolet.svg)](https://kotlinlang.org/lp/multiplatform/)
 ![Android](https://img.shields.io/badge/Android-✔-green.svg)
 ![iOS](https://img.shields.io/badge/iOS-✔-blue.svg)
 ![JVM](https://img.shields.io/badge/JVM-✔-orange.svg)
@@ -9,6 +9,9 @@
 
 
 **PersianDateMultiplatform** is a Kotlin Multiplatform library for working with the Persian (Jalali/Shamsi) calendar across Android, iOS, Desktop (JVM), and Web (Kotlin/Wasm). The library provides utilities for conversion, formatting, and manipulation of Persian dates, with support for leap years, month and weekday names, and integration into Compose Multiplatform projects.
+
+
+Note: This library depends on [Kotlinx datetime](https://github.com/Kotlin/kotlinx-datetime) for date-time operations, so make sure to include it in your project dependencies.
 
 
 
@@ -28,7 +31,7 @@
 
 * **Kotlin Multiplatform Projects (Common Main)**
 
- ![Version](https://img.shields.io/badge/version-0.0.5-green.svg)
+ ![Version](https://img.shields.io/badge/version-0.1.0-green.svg)
 
 
 Add the dependency to your `commonMain` source set in your `build.gradle.kts`:
@@ -38,6 +41,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                // Add kotlinx-datetime first
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:<version>")
+                
+                // Then your PersianDateTime library
                 implementation("io.github.faridsolgi:persiandatetime:<version>")
             }
         }
@@ -51,6 +58,10 @@ For Android-native projects, use the dedicated Android artifact:
 
 ```kotlin
 dependencies {
+    // Add kotlinx-datetime first
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:<version>")
+    
+    // Then the PersianDateTime Android artifact
     implementation("io.github.faridsolgi:persianDateTime-android:<version>")
 }
 ```
