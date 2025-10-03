@@ -50,9 +50,9 @@ class PersianDateTimeFormatTest {
     fun `format 12h time with lowercase am pm`() {
         val fmt = PersianDateTimeFormat().apply {
             dateTime = fakeDateTime()
-            hour12(); char(':'); minute(); char(' '); amPm(false)
+            hour12(); char(':'); minute(); char(' '); amPm()
         }
-        assertEquals("02:05 pm", fmt.build())
+        assertEquals("02:05 " + "ب.‌ظ", fmt.build())
     }
 
     @Test

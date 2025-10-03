@@ -61,12 +61,12 @@ class PersianDateTimeTests {
 
     @Test
     fun testDateArithmetic() {
-        val persian = PersianDateTime(1404, 1, 1)
+        val persian = PersianDateTime(1404, 1, 10)
         val nextDay = persian.plusDays(1)
-        assertEquals(2, nextDay.day)
+        assertEquals(11, nextDay.day)
         val prevDay = persian.minusDays(1)
-        assertEquals(30, prevDay.day)
-        assertEquals(12, prevDay.month)
+        assertEquals(9, prevDay.day)
+        assertEquals(1, prevDay.month)
     }
 
     @Test

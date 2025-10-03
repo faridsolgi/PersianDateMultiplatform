@@ -10,8 +10,12 @@ import io.github.faridsolgi.persiandatetime.util.PersianLeap
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.isoDayNumber
 import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Converts a PersianDateTime to a LocalDate.
@@ -23,6 +27,15 @@ import kotlinx.datetime.plus
  * ```
  */
 fun PersianDateTime.toLocalDate(): LocalDate = Main.persianDateConverter.toGregorian(this).date
+
+
+@OptIn(ExperimentalTime::class)
+fun PersianDateTime.toInstant(timeZone: TimeZone = TimeZone.currentSystemDefault()): Instant =
+    this.toLocalDateTime().toInstant(timeZone)
+
+@OptIn(ExperimentalTime::class)
+fun PersianDateTime.toEpochMilliseconds(timeZone: TimeZone = TimeZone.currentSystemDefault()): Long =
+    this.toLocalDateTime().toInstant(timeZone).toEpochMilliseconds()
 
 /**
  * Converts a PersianDateTime to a LocalDateTime.
