@@ -31,7 +31,7 @@
 
 * **Kotlin Multiplatform Projects (Common Main)**
 
-![Version](https://img.shields.io/badge/version-0.2.0--beta1-green.svg)
+![Version](https://img.shields.io/badge/version-0.2.2-green.svg)
  
 The library is published to Maven Central.
 
