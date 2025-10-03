@@ -202,15 +202,21 @@ println("Current Persian date in Tehran: ${nowInTehran.toDateString()}")
 val nowInParis = Clock.System.nowPersianDate(TimeZone.of("Europe/Paris"))
 println("Current Persian date in Paris: ${nowInParis.toDateString()}")
 ```
+### Arithmetic Extensions
 
-#### Arithmetic Extensions
+You can perform date arithmetic on `PersianDateTime` using `plus` and `minus` with `DateTimeUnit` or `DatePeriod`.
 
 ```kotlin
-import com.faridsolgi.persiandatemultiplatform.converter.plusDays
-import com.faridsolgi.persiandatemultiplatform.converter.minusDays
+import com.faridsolgi.persiandatemultiplatform.converter.plus
+import com.faridsolgi.persiandatemultiplatform.converter.minus
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DatePeriod
 
-val nextWeek = persianDate.plusDays(7)
-val yesterday = persianDate.minusDays(1)
+val nextWeek = persianDate.plus(7, DateTimeUnit.DAY)     // add 7 days
+val yesterday = persianDate.minus(1, DateTimeUnit.DAY)   // subtract 1 day
+
+val nextMonth = persianDate.plus(DatePeriod(months = 1)) // add one month
+val lastYear = persianDate.minus(DatePeriod(years = 1))  // subtract one year
 ```
 
 #### Comparison Extensions
