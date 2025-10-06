@@ -7,11 +7,13 @@ import io.github.faridsolgi.persiandatetime.domain.PersianWeekday
 import io.github.faridsolgi.persiandatetime.util.Main
 import io.github.faridsolgi.persiandatetime.util.PersianDateTimeFormat
 import io.github.faridsolgi.persiandatetime.util.PersianLeap
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.isoDayNumber
+import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlin.time.ExperimentalTime
@@ -49,13 +51,77 @@ fun PersianDateTime.toEpochMilliseconds(timeZone: TimeZone = TimeZone.currentSys
 fun PersianDateTime.toLocalDateTime(): LocalDateTime = Main.persianDateConverter.toGregorian(this)
 
 /**
- * Adds [days] to the PersianDateTime.
+ * Subtracts a given amount of [dateTimeUnit] from this [PersianDateTime].
  *
- * Usage:
- * ```kotlin
- * val newDate = persianDate.plusDays(5)
- * ```
+ * @param value The amount of units to subtract.
+ * @param dateTimeUnit The date-based unit (e.g. day, month, year) to subtract.
+ * @return A new [PersianDateTime] with the adjusted date.
  */
+fun PersianDateTime.minus(value: Int, dateTimeUnit: DateTimeUnit.DateBased): PersianDateTime {
+    val dateTime = this
+    val localDate = this.toLocalDate().minus(value, dateTimeUnit)
+    return localDate.toPersianDateTime(dateTime.hour, dateTime.minute, dateTime.second)
+}
+
+/**
+ * Subtracts a [DatePeriod] (e.g. years, months, days) from this [PersianDateTime].
+ *
+ * @param period The [DatePeriod] to subtract.
+ * @return A new [PersianDateTime] with the adjusted date.
+ */
+fun PersianDateTime.minus(period: DatePeriod): PersianDateTime {
+    val dateTime = this
+    val localDate = this.toLocalDate().minus(period)
+    return localDate.toPersianDateTime(dateTime.hour, dateTime.minute, dateTime.second)
+}
+
+/**
+ * Calculates the [DatePeriod] difference between this [PersianDateTime] and another [PersianDateTime].
+ *
+ * @param other The other [PersianDateTime] to subtract.
+ * @return The [DatePeriod] representing the difference.
+ */
+fun PersianDateTime.minus(other: PersianDateTime): DatePeriod =
+    this.toLocalDate().minus(other.toLocalDate())
+
+/**
+ * Adds a given amount of [dateTimeUnit] to this [PersianDateTime].
+ *
+ * @param value The amount of units to add.
+ * @param dateTimeUnit The date-based unit (e.g. day, month, year) to add.
+ * @return A new [PersianDateTime] with the adjusted date.
+ */
+fun PersianDateTime.plus(value: Int, dateTimeUnit: DateTimeUnit.DateBased): PersianDateTime {
+    val dateTime = this
+    val localDate = this.toLocalDate().plus(value, dateTimeUnit)
+    return localDate.toPersianDateTime(dateTime.hour, dateTime.minute, dateTime.second)
+}
+
+/**
+ * Adds a [DatePeriod] (e.g. years, months, days) to this [PersianDateTime].
+ *
+ * @param period The [DatePeriod] to add.
+ * @return A new [PersianDateTime] with the adjusted date.
+ */
+fun PersianDateTime.plus(period: DatePeriod): PersianDateTime {
+    val dateTime = this
+    val localDate = this.toLocalDate().plus(period)
+    return localDate.toPersianDateTime(dateTime.hour, dateTime.minute, dateTime.second)
+}
+
+/**
+ * Adds a number of days to this [PersianDateTime].
+ *
+ * @param days The number of days to add (can be negative).
+ * @return A new [PersianDateTime] with the adjusted date.
+ *
+ * @deprecated Use [plus] with [DateTimeUnit.DAY] instead.
+ * Example: `date.plus(days, DateTimeUnit.DAY)`
+ */
+@Deprecated(
+    message = "Use plus(days, DateTimeUnit.DAY) instead",
+    replaceWith = ReplaceWith("this.plus(days, DateTimeUnit.DAY)")
+)
 fun PersianDateTime.plusDays(days: Int): PersianDateTime {
     val localDateTime = this.toLocalDateTime()
     val newDate = localDateTime.date.plus(days, DateTimeUnit.DAY)
@@ -63,14 +129,24 @@ fun PersianDateTime.plusDays(days: Int): PersianDateTime {
 }
 
 /**
- * Subtracts [days] from the PersianDateTime.
+ * Subtracts a number of days from this [PersianDateTime].
  *
- * Usage:
- * ```kotlin
- * val newDate = persianDate.minusDays(3)
- * ```
+ * @param days The number of days to subtract.
+ * @return A new [PersianDateTime] with the adjusted date.
+ *
+ * @deprecated Use [minus] with [DateTimeUnit.DAY] instead.
+ * Example: `date.minus(days, DateTimeUnit.DAY)`
  */
-fun PersianDateTime.minusDays(days: Int): PersianDateTime = plusDays(-days)
+@Deprecated(
+    message = "Use minus(days, DateTimeUnit.DAY) instead",
+    replaceWith = ReplaceWith("this.minus(days, DateTimeUnit.DAY)")
+)
+fun PersianDateTime.minusDays(days: Int): PersianDateTime =
+    plusDays(-days)
+
+
+
+
 
 /**
  * Checks if this PersianDateTime is before [other].
@@ -90,6 +166,7 @@ fun PersianDateTime.isBefore(other: PersianDateTime) = this.toLocalDateTime() < 
  * val result = persianDate.isAfter(otherDate)
  * ```
  */
+
 fun PersianDateTime.isAfter(other: PersianDateTime) = this.toLocalDateTime() > other.toLocalDateTime()
 
 /**

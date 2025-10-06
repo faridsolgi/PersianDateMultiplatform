@@ -7,15 +7,17 @@ import io.github.faridsolgi.persiandatetime.extensions.isAfter
 import io.github.faridsolgi.persiandatetime.extensions.isBefore
 import io.github.faridsolgi.persiandatetime.extensions.isBetween
 import io.github.faridsolgi.persiandatetime.extensions.isLeapYear
-import io.github.faridsolgi.persiandatetime.extensions.minusDays
+import io.github.faridsolgi.persiandatetime.extensions.minus
 import io.github.faridsolgi.persiandatetime.extensions.monthLength
 import io.github.faridsolgi.persiandatetime.extensions.persianDayOfWeek
-import io.github.faridsolgi.persiandatetime.extensions.plusDays
+import io.github.faridsolgi.persiandatetime.extensions.plus
 import io.github.faridsolgi.persiandatetime.extensions.toDateString
 import io.github.faridsolgi.persiandatetime.extensions.toDateTimeString
 import io.github.faridsolgi.persiandatetime.extensions.toLocalDate
 import io.github.faridsolgi.persiandatetime.extensions.toPersianDateTime
 import io.github.faridsolgi.persiandatetime.extensions.toTimeString
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlin.test.Test
@@ -62,12 +64,32 @@ class PersianDateTimeTests {
     @Test
     fun testDateArithmetic() {
         val persian = PersianDateTime(1404, 1, 10)
-        val nextDay = persian.plusDays(1)
+        val nextDay = persian.plus(1, DateTimeUnit.DAY)
         assertEquals(11, nextDay.day)
-        val prevDay = persian.minusDays(1)
+        val prevDay = persian.minus(1, DateTimeUnit.DAY)
         assertEquals(9, prevDay.day)
         assertEquals(1, prevDay.month)
     }
+
+    @Test
+    fun testDateArithmetic2() {
+        val persian = PersianDateTime(1404, 1, 10)
+        val nextDay = persian.plus(DatePeriod(days = 1))
+        assertEquals(11, nextDay.day)
+        val prevDay = persian.minus(DatePeriod(days = 1))
+        assertEquals(9, prevDay.day)
+        assertEquals(1, prevDay.month)
+    }
+
+    @Test
+    fun testDateArithmetic3() {
+        val first = PersianDateTime(1404, 1, 10)
+        val second = PersianDateTime(1403, 1, 10)
+        val period = first.minus(second)
+        assertEquals(1, period.years)
+        assertEquals(1, period.days)
+    }
+
 
     @Test
     fun testComparison() {
